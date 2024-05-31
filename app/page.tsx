@@ -29,6 +29,24 @@ export default function Home() {
     }
   }
 
+  const checkpayHandler = async () => {
+    try {
+      const response = await fetch("/api/doku-payment-status", {
+        method: 'POST',
+      })
+
+      if (response) {
+        const result = await response.json()
+
+        console.log("Success : ", result)
+        // setData(result)
+        // handleOpen()
+      }
+    } catch (error) {
+      console.log("Error :", error)
+    }
+  }
+
   return (
 
     <>
@@ -36,9 +54,12 @@ export default function Home() {
         <Button onClick={payHandler} placeholder={undefined}>
           Checkout !
         </Button>
+        <Button onClick={checkpayHandler} placeholder={undefined}>
+          Check Payment
+        </Button>
         <Dialog open={open} handler={handleOpen} placeholder={undefined}>
-          <DialogHeader placeholder={undefined} children={undefined}>
-          </DialogHeader>
+          {/* <DialogHeader placeholder={undefined} children={undefined}>
+          </DialogHeader> */}
           <DialogBody placeholder={undefined}>
            
             {data ? (
@@ -47,7 +68,7 @@ export default function Home() {
               </>
             ) : "Kosong"}
           </DialogBody>
-          <DialogFooter placeholder={undefined} children={undefined} >
+          {/* <DialogFooter placeholder={undefined} children={undefined} > */}
             {/* <div className="flex gap-3">
               <Button variant="text" onClick={handleOpen} placeholder={undefined}>
                 Cancel
@@ -56,7 +77,7 @@ export default function Home() {
                 Pay Now !
               </Button>
             </div> */}
-          </DialogFooter>
+          {/* </DialogFooter> */}
         </Dialog>
       </div>
     </>
